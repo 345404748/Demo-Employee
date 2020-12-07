@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="saveEmployee">
+    姓名：<input type="text" name="employee_name" id="employee_name"> <br/>
+    年龄：<input type="number" name="employee_age" id="employee_age"> <br/>
+    部门：
+    <select name="department_id">
+        <option th:each="department : ${departments}"
+                th:value="${department.department_id}"
+                th:text="${department.department_name}"></option>
+    </select><br/>
+    <input type="submit" value="添加">
+</form>
+</body>
+</html>

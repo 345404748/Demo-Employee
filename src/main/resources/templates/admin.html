@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="queryEmpByDept">
+    <select name="department_id">
+        <option display="none"/>
+        <!--/*@thymesVar id="department_id" type=""*/-->
+        <option th:each="department: ${departments}"
+                th:text="${department.department_name}"
+                th:value="${department.department_id}"
+                th:selected="${department.department_id}==${department_id}?true:false"></option>
+    </select>
+    <input type="submit" value="查询">
+    <a href="/toadd">添加</a>
+</form>
+
+<table border="1" cellpadding="0" cellspacing="0" width="500">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee .employee_id}"></td>
+        <td th:text="${employee .employee_name}"></td>
+        <td th:text="${employee .employee_age}"></td>
+        <td>
+            <a th:href="@{deleteEmployee(employee_id=${employee.employee_id})}"><input type="submit" value="删除"></a>
+            <a th:href="@{update_selectoneid_Employee(employee_id=${employee.employee_id})}"><input type="submit" value="编辑"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

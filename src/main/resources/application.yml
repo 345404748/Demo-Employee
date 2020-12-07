@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/employee?serverTimezone=UTC
+    username: root
+    password: admin
+
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.djh.demo.bean

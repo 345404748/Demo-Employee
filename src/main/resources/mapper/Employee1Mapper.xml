@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.djh.demo.dao.EmployeeDao">
+
+    <resultMap id="employeeMap" type="com.djh.demo.bean.Employee">
+        <id property="employee_id" column ="employee_id" />
+        <result property="employee_name" column = "employee_name"/>
+        <result property="employee_age" column = "employee_age"/>
+        <association property="department" javaType="com.djh.demo.bean.Department">
+            <id property="department_id" column ="department_id" />
+            <result property="department_name" column="department_name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectid" resultMap="employeeMap">
+	SELECT
+	e.employee_id,
+	e.employee_name,
+	e.employee_age,
+	d.department_name,
+	d.department_id
+	FROM
+	employee AS e
+	INNER JOIN
+	department AS d
+	ON
+	e.department_id = d.department_id
+	WHERE
+	e.employee_id = #{id}
+	</select>
+
+    <select id="selectById" resultType="com.djh.demo.bean.Employee">
+        select * from employee where department_id = #{id}
+	</select>
+
+	<insert id="saveEmployee">
+		insert into
+		employee (employee_name, employee_age, department_id)
+		value (#{employee_name},#{employee_age},#{department_id})
+	</insert>
+
+	<delete id="deleteEmployee">
+		delete
+		from employee
+		where employee_id = #{employee_id}
+
+	</delete>
+
+	<update id="updateEmployee">
+		update employee set
+		employee_name = #{employee_name},
+		employee_age = #{employee_age},
+		department_id = #{department_id}
+		where
+		employee_id = #{employee_id}
+	</update>
+
+	<select id="selectallid" resultType="com.djh.demo.bean.Employee">
+	select * from employee;
+	</select>
+
+	<resultMap id="employeeMap1" type="com.djh.demo.bean.Employee">
+		<id property="employee_id" column="employee_id"/>
+		<result property="employee_name" column="employee_name"/>
+		<result property="employee_age" column="employee_age"/>
+		<association property="department" javaType="com.djh.demo.bean.Department">
+		<id property="department_id" column="department_id"/>
+		<result property="department_name" column="department_name"/>
+		</association>
+	</resultMap>
+
+	<select id="selectoneid" resultMap="employeeMap1">
+		select
+		e.employee_id,
+		e.employee_name,
+		e.employee_age,
+		d.department_id,
+		d.department_name
+		from
+		employee as e
+		inner join
+		department as d
+		on
+		e.department_id = d.department_id
+		where
+		e.employee_id = #{employee_id}
+	</select>
+</mapper>
